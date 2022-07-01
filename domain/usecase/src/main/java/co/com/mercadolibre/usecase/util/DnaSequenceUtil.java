@@ -1,15 +1,15 @@
 package co.com.mercadolibre.usecase.util;
 
+import co.com.mercadolibre.model.specie.Specie;
 import co.com.mercadolibre.usecase.dnasequencetypes.IDnaSequence;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Component
 public class DnaSequenceUtil {
 
     public boolean validateDNA(String[] dna) {
@@ -94,6 +94,21 @@ public class DnaSequenceUtil {
         }
 
         return stringBuilderList;
+    }
+
+    public String arrayToString(String[] dna) {
+        return Arrays.toString(dna);
+    }
+
+    public Integer[] countMutantDna(List<Specie> specieList) {
+        long mutants = specieList.stream()
+                .filter(specie -> specie.getSpecies().equalsIgnoreCase("mutant"))
+                .count();
+
+        long humans = specieList.stream()
+                .filter(specie -> specie.getSpecies().equalsIgnoreCase("human"))
+                .count();
+        return new Integer[]{(int) mutants, (int) humans};
     }
 
 }

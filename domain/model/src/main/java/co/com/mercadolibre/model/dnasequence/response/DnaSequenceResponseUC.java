@@ -11,5 +11,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class DnaSequenceResponseUC implements Serializable {
     private boolean mutant;
+    private String dna;
 }
 
