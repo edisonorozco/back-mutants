@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: "BackMutants"
+info:
+  app:
+    name: "${spring.application.name}"
+    description: "Micro Service Validate Mutant"
+    version: "1.0.0"
+management:
+  endpoints:
+    web:
+      base-path: "/"
+aws:
+  dynamodb:
+    endpoint: "http://localhost:8000"
+    threads: "10"
