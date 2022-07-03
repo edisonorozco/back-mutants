@@ -29,8 +29,8 @@ public class ApiRestDnaSequenceUtil {
 
     public ResponseEntity<ApiResponseStats> statsUCToEntityApiResponseStat(StatsUC statsUC) {
         return ResponseEntity.ok().headers(new HttpHeaders()).body(ApiResponseStats.builder()
-                .count_mutant_dna(statsUC.getCount_mutant_dna())
-                .count_human_dna(statsUC.getCount_human_dna())
+                .countMutantDna(statsUC.getCountMutantDna())
+                .countHumanDna(statsUC.getCountHumanDna())
                 .ratio(statsUC.getRatio())
                 .build());
     }

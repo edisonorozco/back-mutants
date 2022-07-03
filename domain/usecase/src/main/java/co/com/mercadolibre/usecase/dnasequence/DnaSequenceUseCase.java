@@ -28,14 +28,13 @@ public class DnaSequenceUseCase {
     }
 
     public Mono<StatsUC> getAllSpecies() {
-        return Mono.empty()
-                .flatMapMany(listSpecies -> repositoryGateway.getSpecies())
+        return repositoryGateway.getSpecies()
                 .collectList()
-                .map(specieList -> {
-                    Integer[] stats = dnaSequenceUtil.countMutantDna(specieList);
+                .map(species -> {
+                    Integer[] stats = dnaSequenceUtil.countMutantDna(species);
                     return StatsUC.builder()
-                            .count_mutant_dna(stats[0])
-                            .count_human_dna(stats[1])
+                            .countMutantDna(stats[0])
+                            .countHumanDna(stats[1])
                             .ratio((float) stats[0] / stats[1])
                             .build();
                 });
