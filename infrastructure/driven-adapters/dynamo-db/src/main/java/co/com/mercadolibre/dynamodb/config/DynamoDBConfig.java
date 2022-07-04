@@ -14,13 +14,13 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 @Configuration
 public class DynamoDBConfig {
 
-    @Value("${aws.dynamodb.table}")
+    @Value("#{environment.DYNAMODB_TABLE}")
     private String tableName;
 
-    @Value("${aws.credentials.access.key}")
+    @Value("#{environment.ACCESS_KEY_ID}")
     private String accessKey;
 
-    @Value("${aws.credentials.secret.access.key}")
+    @Value("#{environment.ACCESS_SECRET_KEY}")
     private String secretAccessKey;
 
     @Bean

@@ -1,6 +1,7 @@
 package co.com.mercadolibre.usecase.util;
 
 import co.com.mercadolibre.model.specie.Specie;
+import co.com.mercadolibre.usecase.common.ISpecie;
 import co.com.mercadolibre.usecase.dnasequencetypes.IDnaSequence;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class DnaSequenceUtil {
         return true;
     }
 
-    public List<StringBuilder> createListFromLoopDiagonally(char[][] matrixDna) {
+    private List<StringBuilder> createListFromLoopDiagonally(char[][] matrixDna) {
 
         StringBuilder stringBuilder = new StringBuilder();
         List<StringBuilder> stringBuilderList = new ArrayList<>();
@@ -98,14 +99,15 @@ public class DnaSequenceUtil {
     }
 
     public Integer[] countMutantDna(List<Specie> specieList) {
-        long mutants = specieList.stream()
-                .filter(specie -> specie.getSpecies().equalsIgnoreCase("mutant"))
-                .count();
-
-        long humans = specieList.stream()
-                .filter(specie -> specie.getSpecies().equalsIgnoreCase("human"))
-                .count();
+        long mutants = getCount(specieList, ISpecie.MUTANT);
+        long humans = getCount(specieList, ISpecie.HUMAN);
         return new Integer[]{(int) mutants, (int) humans};
+    }
+
+    private long getCount(List<Specie> specieList, String mutant) {
+        return specieList.stream()
+                .filter(specie -> specie.getSpecies().equalsIgnoreCase(mutant))
+                .count();
     }
 
 }

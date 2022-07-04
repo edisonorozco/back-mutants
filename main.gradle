@@ -24,6 +24,14 @@ subprojects {
         testCompileOnly  "org.projectlombok:lombok:${lombokVersion}"
         testAnnotationProcessor  "org.projectlombok:lombok:${lombokVersion}"
         implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+
+        testCompileOnly 'org.junit.jupiter:junit-jupiter-engine'
+        testImplementation 'org.junit.jupiter:junit-jupiter-api'
+        testImplementation 'junit:junit:4.13.2'
+    }
+
+    test {
+        useJUnitPlatform()
     }
 
     test.finalizedBy(project.tasks.jacocoTestReport)

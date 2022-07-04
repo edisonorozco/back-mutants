@@ -1,4 +1,5 @@
 package co.com.mercadolibre.model.dnasequence.resquest;
+
 import lombok.*;
 
 import java.io.Serializable;

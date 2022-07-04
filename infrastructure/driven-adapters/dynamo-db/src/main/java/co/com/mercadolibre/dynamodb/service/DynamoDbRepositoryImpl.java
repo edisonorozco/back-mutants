@@ -1,4 +1,4 @@
-package co.com.mercadolibre.dynamodb;
+package co.com.mercadolibre.dynamodb.service;
 
 import co.com.mercadolibre.dynamodb.helper.EntitySpecieMapper;
 import co.com.mercadolibre.dynamodb.repository.SpecieRepository;
