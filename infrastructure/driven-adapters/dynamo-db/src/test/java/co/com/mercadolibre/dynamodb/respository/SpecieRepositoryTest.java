@@ -16,6 +16,7 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbAsyncTable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -64,7 +65,7 @@ public class SpecieRepositoryTest {
     @Test
     void whenFindAllIsTriggeredThenNoException() {
         when(specieDynamoDbAsyncTable.scan()).thenReturn(s -> Mono.just(
-                List.of(specieEntity)));
+                Collections.singletonList(specieEntity)));
         specieRepository.findAll();
         verify(specieDynamoDbAsyncTable, times(1)).scan();
     }

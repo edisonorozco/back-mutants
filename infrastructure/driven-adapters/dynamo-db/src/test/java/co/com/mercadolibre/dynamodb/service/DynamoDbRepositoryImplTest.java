@@ -16,6 +16,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,7 +66,7 @@ public class DynamoDbRepositoryImplTest {
     @Test
     void whenGetAllIsTriggeredThenNoException() {
         when(entitySpecieMapper.toModel(any())).thenReturn(specieModel);
-        Mono<List<co.com.mercadolibre.dynamodb.entity.Specie>> list = Mono.just(List.of(specieEntity));
+        Mono<List<co.com.mercadolibre.dynamodb.entity.Specie>> list = Mono.just(Collections.singletonList(specieEntity));
         when(specieRepository.findAll()).thenReturn(list);
         Flux<Specie> specieServiceList = specieService.getSpecies();
         verify(specieRepository, times(1)).findAll();

@@ -35,10 +35,14 @@ public class DnaSequenceUtil {
     }
 
     private char[][] dnaToMatrix(String[] dna) {
-        return Stream.of(dna)
+
+       List<char[]> chars = Stream.of(dna)
                 .map(String::toCharArray)
-                .collect(Collectors.toList())
-                .toArray(char[][]::new);
+                .collect(Collectors.toList());
+
+       char[][] matrix = new char[chars.size()][];
+
+        return chars.toArray(matrix);
     }
 
     public boolean isValidDnaSequence(String[] dna) {

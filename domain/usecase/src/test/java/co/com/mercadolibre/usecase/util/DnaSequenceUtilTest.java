@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,6 +57,6 @@ public class DnaSequenceUtilTest {
         Specie specie1 = Specie.builder().dna("dna1").species("human").build();
         Specie specie2 = Specie.builder().dna("dna2").species("mutant").build();
         Specie specie3 = Specie.builder().dna("dna3").species("mutant").build();
-        return List.of(specie1, specie2, specie3);
+        return Arrays.asList(specie1,specie2,specie3);
     }
 }
