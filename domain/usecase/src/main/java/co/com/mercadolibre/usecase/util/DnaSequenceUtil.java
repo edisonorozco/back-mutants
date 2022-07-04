@@ -14,9 +14,6 @@ public class DnaSequenceUtil {
 
     public boolean validateDNA(String[] dna) {
 
-        if (!isValidDnaSequence(dna))
-            return false;
-
         char[][] matrixDna = dnaToMatrix(dna);
 
         return Stream.of(createListFromLoopDiagonally(matrixDna), createListFromLoopHorizontally(dna), createListFromLoopVertically(matrixDna))
@@ -43,7 +40,7 @@ public class DnaSequenceUtil {
                 .toArray(char[][]::new);
     }
 
-    private boolean isValidDnaSequence(String[] dna) {
+    public boolean isValidDnaSequence(String[] dna) {
         for (String dnaSequence : dna) {
             for (char value : dnaSequence.toCharArray()) {
                 if (value != 'A' && value != 'T' && value != 'C' && value != 'G')

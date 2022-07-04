@@ -5,6 +5,7 @@ import co.com.mercadolibre.model.dnasequence.resquest.DnaSequence;
 import co.com.mercadolibre.model.specie.Specie;
 import co.com.mercadolibre.model.specie.gateways.RepositoryGateway;
 import co.com.mercadolibre.model.specie.response.StatsUC;
+import co.com.mercadolibre.usecase.common.ISpecie;
 import co.com.mercadolibre.usecase.util.DnaSequenceUtil;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
@@ -16,14 +17,21 @@ public class DnaSequenceUseCase {
     private final DnaSequenceUtil dnaSequenceUtil = new DnaSequenceUtil();
 
     public Mono<DnaSequenceResponseUC> isMutant(DnaSequence dnaSequence) {
+
+        if (!dnaSequenceUtil.isValidDnaSequence(dnaSequence.getDna()))
+            return Mono.just(DnaSequenceResponseUC.builder()
+                    .mutant(false)
+                    .dna("")
+                    .build());
+
         return Mono.just(DnaSequenceResponseUC.builder()
-                .mutant(dnaSequenceUtil.validateDNA(dnaSequence.getDna()))
-                .dna(dnaSequenceUtil.arrayToString(dnaSequence.getDna()))
-                .build())
-                .doOnNext(value -> repositoryGateway.saveSpecie(Specie.builder()
-                        .dna(value.getDna())
-                        .species(value.isMutant() ? "mutant" : "human")
+                        .mutant(dnaSequenceUtil.validateDNA(dnaSequence.getDna()))
+                        .dna(dnaSequenceUtil.arrayToString(dnaSequence.getDna()))
                         .build())
+                .doOnNext(value -> repositoryGateway.saveSpecie(Specie.builder()
+                                .dna(value.getDna())
+                                .species(value.isMutant() ? ISpecie.MUTANT : ISpecie.HUMAN)
+                                .build())
                         .subscribe());
     }
 

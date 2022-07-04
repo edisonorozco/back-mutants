@@ -19,15 +19,13 @@ public class DynamoDbRepositoryImpl implements RepositoryGateway {
     @Override
     public Mono<Specie> saveSpecie(Specie specie) {
         return specieRepository.save(entitySpecieMapper.toEntity(specie))
-                .map(entitySpecieMapper::toModel)
-                .doOnNext(specie1 -> System.out.println("Especie guardada exitosamente"));
+                .map(entitySpecieMapper::toModel);
     }
 
     @Override
     public Flux<Specie> getSpecies() {
         return specieRepository.findAll()
                 .flatMapMany(Flux::fromIterable)
-                .map(entitySpecieMapper::toModel)
-                .doOnNext(specie -> System.out.println("Se listaron las especies"));
+                .map(entitySpecieMapper::toModel);
     }
 }
