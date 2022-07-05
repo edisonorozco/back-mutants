@@ -4,12 +4,15 @@ import co.com.mercadolibre.dynamodb.entity.Specie;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbAsyncTable;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedAsyncClient;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
+
+import java.net.URI;
 
 @Configuration
 public class DynamoDBConfig {
@@ -24,6 +27,19 @@ public class DynamoDBConfig {
     private String secretAccessKey;
 
     @Bean
+    @Profile({"local"})
+    public DynamoDbAsyncClient amazonDynamoDB(@Value("#{environment.AWS_REGION}") String region,
+                                              @Value("#{environment.AWS_DYNAMODB_END_POINT}") String endPoint,
+                                              @Value("#{environment.AWS_DYNAMODB_TABLE_NAME}") String tableName) {
+        this.tableName = tableName;
+        return DynamoDbAsyncClient.builder()
+                .endpointOverride(URI.create(endPoint))
+                .region(Region.of(region))
+                .build();
+    }
+
+    @Bean
+    @Profile({"dev"})
     public DynamoDbAsyncClient amazonDynamoDBAsync() {
         return DynamoDbAsyncClient.builder()
                 .region(Region.US_EAST_1)

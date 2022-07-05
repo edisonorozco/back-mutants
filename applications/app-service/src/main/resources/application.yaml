@@ -1,6 +1,8 @@
 spring:
   application:
     name: "BackMutants"
+  profiles:
+    active: "${APP_ENV}"
 info:
   app:
     name: "${spring.application.name}"
