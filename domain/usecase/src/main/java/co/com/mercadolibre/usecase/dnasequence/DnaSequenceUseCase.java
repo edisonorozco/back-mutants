@@ -43,7 +43,7 @@ public class DnaSequenceUseCase {
                     return StatsUC.builder()
                             .countMutantDna(stats[0])
                             .countHumanDna(stats[1])
-                            .ratio((float) stats[0] / stats[1])
+                            .ratio(stats[1] > 0 ? (float)stats[0] / stats[1] : stats[0])
                             .build();
                 });
     }
